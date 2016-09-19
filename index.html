@@ -1,0 +1,48 @@
+<!DOCTYPE>
+<html>
+
+<head>
+    <title>JSON Practice: OMDB SEARCH</title>
+</head>
+
+<body>
+
+    <form>Here is a Submit Button:
+        <input type="text" id="query">
+        <input type="submit" id="search-term" value="Submit">
+    </form>
+    <p>Here are your search results:</p>
+    <div id="search-results"></div>
+
+
+    <!-- a link to jquery minified-->
+    <script src="//code.jquery.com/jquery-3.1.0.min.js"></script>
+
+
+    <script>
+        $(function () {
+            console.log("urgh");
+            $('#search-term').click(function (event) {
+                console.log("test1");
+                event.preventDefault();
+                var searchTerm = $('#query').val();
+                $.getJSON('http://www.omdbapi.com/?s=' + searchTerm + '&r=json', showResults);
+
+            });
+        })
+
+        function showResults(results) {
+            console.log("test2");
+            results = results.Search;
+            var html = "";
+            $.each(results, function (index, value) {
+                html += '<p>' + value.Title + '</p>';
+                console.log(value.Title);
+            });
+            $('#search-results').html(html);
+        }
+    </script>
+
+</body>
+
+</html>
